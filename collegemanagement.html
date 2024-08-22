@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>College Management System</title>
+    <style>
+        body {
+            font-family:'Helvetica';
+            margin: 0;
+            padding: 0;
+            background-color: #caebf0e1;
+        }
+        header {
+            background-color: #363535;
+            color: rgba(193, 255, 198, 0.573);
+            text-align: center;
+            padding: 20px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        nav {
+            background-color: #3f3f3fe7;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            height:100%;
+            width: 100%;
+        }
+        nav a{
+            text-decoration: none;
+            color: white;
+            margin: 0 20px;
+            font-weight: bold;
+            padding:14px;
+            font-size: 18px;
+            border-right : 2px solid rgb(180, 186, 249);
+        }
+        nav a:hover{
+            color: aqua;
+            text-decoration: none;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th,td{
+            border: 1px solid #c6bebe;
+            padding: 8px;
+            color: black;
+            font-size: 18px;
+        }
+        tr:nth-child(even)
+        {
+            background-color: #ddd;
+        }
+        th {
+            background-color: #bdb8b88e;
+            color: rgb(16, 13, 13);
+        }
+        #home, #regi,#atten,#fee,#teacher,#course,#notice,#manage 
+        {
+            display: none;
+        }
+        #home.active, #regi.active,#atten.active,#fee.active,#teacher.active,#course.active,#notice.active,#manage.active 
+        {
+            display: block;
+            padding: 20px;
+            margin: 5%;
+            border: 1px solid rgba(255, 255, 255, 0.523);            
+        }
+        #home{
+            background-color: rgba(199, 199, 199, 0.728);   
+        }
+        #atten,#fee,#teacher,#course,#notice,#manage{
+            padding: 50px;
+            color: #3b3939;
+            font-size: 20px;
+            background-color: rgba(237, 233, 233, 0.527);
+            border: 2px solid rgba(251, 85, 85, 0.523);
+        }
+        input[type=text],select{
+            padding: 7px;
+            margin: 5px;
+            border-radius:10px;
+            border:1px solid chocolate;
+        }
+        #btn{
+        padding: 8px;
+        margin: 10px;
+        background-color: rgb(172, 255, 172) ;
+        color: rgb(2, 78, 20);
+        font-weight: 600;
+        border: 2px solid rgb(1, 71, 1);
+        border-radius: 50px;
+        }
+        #btn:hover{
+            cursor: pointer;
+            color: blue;
+        }
+        #bhead{
+            color: rgba(21, 106, 235,.9);
+            font-weight: bold;
+            text-align: center;
+            font-size: 50px;
+            font-family: 'Times New Roman', Times, serif;
+
+        }
+        #manage a{
+            text-decoration: none;
+        }
+        #m{
+            font-size: 70px; font-weight: bold;
+            color: rgba(43, 214, 43, 0.906);
+        }
+        .menuBtns {
+            display: none;
+        }
+        @media only screen and (max-width: 800px) {
+            #m{
+                font-size: 30px;
+
+            }
+            #m > img{
+                width: 50px;
+            }
+            nav {
+                flex-wrap: wrap;
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+                overflow: hidden;
+                /* padding: 0 !important; */
+                height: 0;
+                transition: all .3s ease;   
+            }
+            nav a {
+                display: block;
+                border: none;
+            }
+            .menuBtns {
+                position: relative;
+                padding: 20px;
+                /* background: #000; */
+                display: inline-block;
+                cursor: pointer;
+            }
+            .menuBtns .menuLine {
+                width: 50px;
+                height: 4px;
+                background: #000;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="m"  id="stroke"><img src="http://static1.squarespace.com/static/57713a8e2994cae381dd86fe/t/5a06f38af9619a1bb0d41f1a/1510405003944/SOA-PNG.png?format=1500w" alt="Soa LOGO " width="100px"> College Management System</h1>
+        <h4 style="font-size: 30px; color: chocolate;">Welcome to the College Management System webpage</h4>
+    </header>
+    <div>
+        <div class="menuBtns">
+            <div class="menuLine"></div>
+            <div class="menuLine"></div>
+            <div class="menuLine"></div>
+        </div>
+        <nav>
+            <a href="#" onclick="showContent('home')"><i class="fa fa-home"></i> Home</a>
+            <a href="#" onclick="showContent('regi')"><i class="fa fa-id-card-o"></i> Registration</a>
+            <a href="#" onclick="showContent('atten')"><i class="fa fa-calendar"></i> Student Attendance</a>
+            <a href="#" onclick="showContent('fee')"><i class="fa fa-money"></i> Fees</a>
+            <a href="#" onclick="showContent('teacher')"><i class="fa fa-vcard-o"></i> Teacher Details</a>
+            <a href="#" onclick="showContent('course')"><i class="fa fa-book"></i> Courses</a>
+            <a href="#" onclick="showContent('notice')"><i class="fa fa-bell"></i> Notices </a>
+            <a href="#" onclick="showContent('manage')"><i class="fa fa-key"></i> Manage Account</a>
+            <a href=""><i class="fa fa-sign-out" aria-hidden="true" style="font-size: 20px;"></i>Logout</a>
+        </nav>
+    </div>
+        <div class="content" id="home">
+            <h1 id="bhead">WELCOME</h1>
+            <div class="box"><img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFLYtxj-tne8GF3mErRrfyPwjRAr2VIkV5Ou0GWd8&s"></div>
+            <h2><b>Dr. Abhilash Pati</b></h2>
+            <h3>Asst.Professor ,SOA University</h3>
+            <h5>Head of Exam Coordination Commitee</h5>
+            <br><br>
+        </div>
+        <div class="content" id="regi">
+            <h1 id="bhead">New Student Registration</h1>
+            <h1>Page Under Construction......</h1>
+        </div>
+        <div class="content" id="atten">
+            <label for="r">Search By Regd no : </label>
+            <input type="text" id="r" placeholder="2241019588">
+            <button><i class="fa fa-search"></i>search</button>
+            <table>
+                <tr>
+                    <th>S.No</th>
+                    <th>Sty No</th>
+                    <th>Subject Code</th>
+                    <th>Subject</th>
+                    <th>Total Class</th>
+                    <th>Attendance</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>3</td>
+                    <td>CSE2141</td>
+                    <td>Computer Science Workshop 1</td>
+                    <td>43/43</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>CSE3141</td>
+                    <td>Algorithm Design 1</td>
+                    <td>34/34</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>EET1211</td>
+                    <td>Digital Logic Design</td>
+                    <td>34/35</td>
+                    <td>97.14%</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>MTH2002</td>
+                    <td>Probability Statistics</td>
+                    <td>32/35</td>
+                    <td>91.42%</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>3</td>
+                    <td>HSS2021</td>
+                    <td>Principle of MacroEconomics</td>
+                    <td>28/30</td>
+                    <td>93.33%</td>
+                </tr>
+            </table>
+        </div>
+        <div class="content" id="fee">
+            <label for="r">Search By Regd no : </label>
+            <input type="text" id="r" placeholder="2241019588">
+            <button><i class="fa fa-search"></i>search</button>
+            <br>
+            Academic year:
+            <select name="year">
+                <option value="" hidden>Select Academic year</option>
+                <option value="22">2022-23</option>
+                <option value="23">2023-24</option>
+            </select>
+            <table>
+                <tr>
+                    <th>Installment Amount</th>
+                    <th>Due Date</th>
+                    <th>Payment status</th>
+                    <th>Payment Date</th>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-inr"></i> 85000</td>
+                    <td>22.12.2023</td>
+                    <td style="background-color: rgba(195, 249, 114, 0.826);">Paid</td>
+                    <td>20.12.2023</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-inr"></i> 85000</td>
+                    <td>29.01.2024</td>
+                    <td style="background-color: rgba(250, 179, 166, 0.781);">Not Paid</td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-inr"></i> 85000</td>
+                    <td>26.02.2024</td>
+                    <td style="background-color: rgba(250, 179, 166, 0.781);">Not Paid</td>
+                    <td>--</td>
+                </tr>
+            </table><br>
+            Send Reminder on : <button id="btn">&nbsp;<i class="fa fa-envelope"></i>&nbsp;</button>
+            <button id="btn">&nbsp;<i class="fa fa-whatsapp">&nbsp;</i></button>
+        </div>
+        <div class="content" id="course">
+        <table>
+            
+                <table >
+                    <tr>
+                        <th colspan="2" style="background-color: lightblue;font-style: 20px;text-align: center;">Program List</th>
+                    </tr>
+                    <tr>
+                    <th style="background-color: lightblue;">Course Code</th>
+                    <th style="background-color: lightblue;">Course Name</th>
+                    </tr>
+                    <tr>
+                    <td>B.Tech</td>
+                    <td>Bachelor Of Technology</td>
+                    </tr>
+                    <tr>
+                    <td>BCA</td>
+                    <td>Bachelor of Computer Application</td>
+                    </tr>
+                    <tr>
+                    <td>MCA</td>
+                    <td>Master of Computer Application</td>
+                    </tr>
+                    <tr>
+                    <td>MSC</td>
+                    <td>M.Sc. (Chemistry/Physics/Mathmatics)</td>
+                    </tr>
+                    <tr>
+                    <td>PhD</td>
+                    <td> PhD (Engineering and Technology/ Basic Sciences/ Humanities and Social Sciences)</td>
+                    </tr>
+                    <tr>
+                    <td>M.Tech</td>
+                    <td>Masters of Technology</td>
+                    </tr>
+            </table>
+            <button id="btn">Add a Programme</button>
+            <button id="btn" style="background-color: rgb(250, 152, 152);">Remove a Programme</button>
+        </div>
+
+        <div class="content" id="teacher">
+            <label for="r">Search By Teacher Code: </label>
+            <input type="text" id="r" placeholder="soatc1256">
+            <button><i class="fa fa-search"></i>search</button><br>
+            <label for="r">Search By Teacher Name: </label>
+            <input type="text" id="r" placeholder="Enter teacher name">
+            <button><i class="fa fa-search"></i>search</button>
+            <table>
+                <tr colspan="2">
+                    <th colspan="2" style="color:rgba(180, 84, 43, 0.817);text-align: center;">Name : </th>
+                    <td colspan="3" style="font-size: 22px; font-weight: bold;">Dr. Abhilash Pati</td>
+                </tr>
+                <tr colspan="2">
+                    <th colspan="2" style="text-align: center;">Teacher Code:</th>
+                    <td colspan="3" style="font-size: 20px;">SOATC1256</td>
+                </tr>
+                <tr>
+                    <th>Teacher Attendance</th>
+                    <th>Class Hour (per week)</th>
+                    <th>Department</th>
+                    <th>designation</th>
+                    <th>Student Feedback Rating</th>                    
+                </tr>
+                <tr>
+                    <td>93</td>
+                    <td>24</td>
+                    <td>Computer Science</td>
+                    <td>Asst. Professor</td>
+                    <td style="background-color: rgba(197, 252, 114, 0.836);">9.75</td>                
+                </tr>
+            </table>
+            <br><br>
+        </div>
+        <div class="content" id="notice">
+            <h2 style="font-weight: bold;">Push a Student Notice : </h2>
+            <input type="file"><br>
+            <label for="n">Notice number:</label>
+            <input type="text" name="n"><br>
+            <button id="btn"><i class="fa fa-upload"></i> Pubic</button>
+            <button id="btn"><i class="fa fa-clock-o"></i> Set a time to push</button>
+            <br>
+            <h2 style="font-weight: bold;">Exam Notice : </h2>
+            <input type="file"><br>
+            <label for="n">Notice number:</label>
+            <input type="text" name="n"><br>
+            <button id="btn"><i class="fa fa-upload"></i> Pubic</button>
+            <button id="btn"><i class="fa fa-clock-o"></i> Set a time to push</button>
+            <h2 style="font-weight: bold;">Remove a notice : </h2>
+            <label for="n">Notice number:</label>
+            <input type="text" name="n"><br>
+            <button id="btn" style="background-color: rgba(236, 161, 161, 0.998);"><i class="fa fa-remove"></i>Remove</button>
+        </div>
+        <div class="content" id="manage">
+            <a href="#" ><i class="fa fa-key"></i> Set a new password</a><br>
+            <a href="#"><i class="fa fa-envelope"></i> Set a new Email</a><br>
+            
+        </div>
+    <footer>
+        <p>&copy; Group-N. 2024 College Management System. All rights reserved.</p>
+    </footer>
+    <script>
+        function showContent(contentId) {
+            document.querySelectorAll('.content').forEach(function(content) {
+                content.classList.remove('active');
+            });
+            document.getElementById(contentId).classList.add('active');
+        }
+        showContent('home');
+        const menuBtns = document.querySelector(".menuBtns");
+        const nav = document.querySelector("nav");
+        
+        let toggle = false;
+         
+        menuBtns.addEventListener("click",()=>{
+            if(!toggle){
+                nav.style.height = "100%";
+                toggle = !toggle;
+            } else{
+                nav.style.height = "0";
+                toggle = !toggle;
+            }
+        })
+
+    </script>
+</body>
+</html>
